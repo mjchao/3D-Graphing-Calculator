@@ -3,8 +3,8 @@ package mjchao.graph3d.ui;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
-import mc.graph3d.calculate.DefaultCalculate;
-import mc.graph3d.calculate.Variable;
+import mjchao.graph3d.calculate.DefaultCalculate;
+import mjchao.graph3d.calculate.Variable;
 import mjchao.graph3d.graph.GraphPaper3D;
 import mjchao.graph3d.graph.ParametricGraph;
 import mjchao.graph3d.util.Text;

@@ -23,8 +23,8 @@ import javafx.scene.text.Text;
 
 import javax.swing.Timer;
 
-import mc.graph3d.calculate.DefaultCalculate;
-import mc.graph3d.calculate.Variable;
+import mjchao.graph3d.calculate.DefaultCalculate;
+import mjchao.graph3d.calculate.Variable;
 import mjchao.graph3d.util.Materials;
 
 /**

@@ -4,7 +4,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import mc.graph3d.calculate.DefaultCalculate;
+import mjchao.graph3d.calculate.DefaultCalculate;
 import mjchao.graph3d.util.Text;
 
 /**
