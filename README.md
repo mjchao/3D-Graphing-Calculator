@@ -15,7 +15,7 @@ Graph Paper
 This program uses a right-handed coordinate system, which obeys the right-hand rule. Before you rotate your view, we have the following properties:
 
 * The x-axis goes left (-) to right (+).
-* The y-axis goes into the screen. Higher y-coordinates are "farther" away from you.
+* The y-axis goes into the screen. Higher y-coordinates are "farther" from you.
 * The z-axis goes bottom (-) to up(+).
 
 Click on the graph paper to gain focus. You can use the keyboard to view the graph in different ways.
