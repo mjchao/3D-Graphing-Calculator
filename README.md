@@ -53,3 +53,13 @@ WARNING: When you click regraph, there will be a progress bar that indicates the
 
 Nevertheless, think carefully when choosing your dependent variable increments. The program could become unresponsive and you may not be able to terminate the graphing process. A good standard is for the product of the total increments of each dimension to not exceed 100,000. For example, if you had -10 <= x <= 10 with increments of 0.1 and -10 <= y <= 10 with increments of 0.1, the product would be ( (10 - -10)/0.1 )*( (10 - -10)/0.1 ) = 200*200 = 40,000, which is well below the 100,000 benchmark.
 
+Future Improvements
+-----
+* Graphing for spherical coordinates r(theta , psi) = ...
+* Graphing of equations using x, y, z. For example, z^2=x^2+y^2.
+
+Known Problems
+-----
+
+* You cannot terminate the graphing if the computer has finished performing calculations and entered the rendering process (the program will freeze at this stage if your dimension increments are poorly chosen)
+* Selecting points on parametric graphs does not work very well.
