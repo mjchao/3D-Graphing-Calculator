@@ -49,5 +49,7 @@ For each individual graph, you must specify the minimum, maximum, and increments
 
 You can also pick a graph color and opt to temporarily ignore the graph. Temporarily ignored graphs are not displayed when you click "Regraph"
 
-WARNING: When you click regraph, there will be a progress bar that indicates the graphing progress. There will also be a button that allows you to terminate the graphing process if it is taking too long. Nevertheless, think carefully when choosing your dependent variable increments. 
+WARNING: When you click regraph, there will be a progress bar that indicates the graphing progress. There will also be a button that allows you to terminate the graphing process if it is taking too long. 
+
+Nevertheless, think carefully when choosing your dependent variable increments. The program could become unresponsive and you may not be able to terminate the graphing process. A good standard is for the product of the total increments of each dimension to not exceed 100,000. For example, if you had -10 <= x <= 10 with increments of 0.1 and -10 <= y <= 10 with increments of 0.1, the product would be ( (10 - -10)/0.1 )*( (10 - -10)/0.1 ) = 200*200 = 40,000, which is well below the 100,000 benchmark.
 
