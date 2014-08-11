@@ -5,9 +5,11 @@ Graphs 3D surfaces and paths
 
 Requirements
 -----
-This program was written in Java 8. You will need a Java Runtime Environment 8, which can be downloaded here:
+This program was written in Java 8. The run the program, you will need the Java Runtime Environment 8, which can be downloaded here:
 
 http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
+
+Once you have the runtime environment, you should download the **raw** executable jar file "graph3d.jar" and then run "graph3d.jar" on your computer (double click the file, or type "java -jar graph3d.jar" into command line).
 
 Graph Paper
 -----
