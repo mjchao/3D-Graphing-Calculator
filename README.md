@@ -56,7 +56,8 @@ Nevertheless, think carefully when choosing your dependent variable increments. 
 Future Improvements
 -----
 * Graphing for spherical coordinates r(theta , psi) = ...
-* Graphing of equations using x, y, z. For example, z^2=x^2+y^2.
+* Graphing of arbitrary equations using x, y, z. For example, z^2=x^2+y^2.
+* Greater efficiency (currently, the greatest bottleneck seems to be the JavaFX 3D rendering process).
 * 4 Dimensional graphing with 3D surfaces that change over time.
 
 Known Problems
