@@ -57,6 +57,7 @@ Future Improvements
 -----
 * Graphing for spherical coordinates r(theta , psi) = ...
 * Graphing of equations using x, y, z. For example, z^2=x^2+y^2.
+* 4 Dimensional graphing with 3D surfaces that change over time.
 
 Known Problems
 -----
