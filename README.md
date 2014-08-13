@@ -11,6 +11,8 @@ http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.h
 
 Once you have the runtime environment, you should download the **raw** executable jar file "graph3d.jar" and then run "graph3d.jar" on your computer (double click the file, or type "java -jar graph3d.jar" into command line).
 
+You can also view screenshots of the program in the "photos" directory.
+
 Graph Paper
 -----
 
