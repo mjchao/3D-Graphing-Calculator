@@ -1,7 +1,7 @@
 3D-Graphing-Calculator
 ======================
 
-Graphs 3D surfaces and paths
+Graphs 3D surfaces and paths. To see demo photos, please go to the "photos" folder. To see the source code, please go to the "src/mjchao/graph3d" folder. To learn how to use the program, please read the instructions below.
 
 Requirements
 -----
@@ -10,8 +10,6 @@ This program was written in Java 8. The run the program, you will need the Java 
 http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 
 Once you have the runtime environment, you should download the **raw** executable jar file "graph3d.jar" and then run "graph3d.jar" on your computer (double click the file, or type "java -jar graph3d.jar" into command line).
-
-You can also view screenshots of the program in the "photos" directory.
 
 Graph Paper
 -----
