@@ -45,24 +45,6 @@ public class FunctionEquationPanel extends EquationPanel {
 		this.m_calculateEnvironment.defineVariables( this.m_xVar , this.m_yVar );
 	}
 	
-	private String m_input = null;
-	private DimensionData m_xDimen = null;
-	private DimensionData m_yDimen = null;
-	private void cacheInputs() {
-		this.m_input = this.inptFunction.getInput();
-		this.m_xDimen = this.pnlX.getDimensionProperties();
-		this.m_yDimen = this.pnlY.getDimensionProperties();
-	}
-	
-	private boolean changed() {
-		if ( this.m_input == null || this.m_xDimen == null || this.m_yDimen == null ) {
-			return true;
-		}
-		else {
-			return !( this.m_input.equals( this.inptFunction.getInput() ) && this.m_xDimen.equals( this.pnlX.getDimensionProperties() ) && this.m_yDimen.equals( this.pnlY.getDimensionProperties() ) );
-		}
-	}
-	
 	@Override
 	public void disableModification() {
 		super.disableModification();
@@ -82,91 +64,88 @@ public class FunctionEquationPanel extends EquationPanel {
 	@Override
 	public void createGraph( Thread graphThread , JProgressBar progress ) {
 		if ( super.shouldGraph() ) {
-			if ( changed() ) {
-				cacheInputs();
-				this.m_functionGraph.clear();
-				DimensionData xDimen = this.pnlX.getDimensionProperties();
-				DimensionData yDimen = this.pnlY.getDimensionProperties();
-				double[] zAxisData = this.m_graphPaper.getZAxisProperties();
-				
-				this.inptFunction.highlight();
-				this.m_calculateEnvironment.process( this.inptFunction.getInput() );
-				this.inptFunction.unhighlight();
-				
-				double xMin = xDimen.m_min; double xMax = xDimen.m_max; double xInc = xDimen.m_inc;
-				double yMin = yDimen.m_min; double yMax = yDimen.m_max; double yInc = yDimen.m_inc;
-				double zMin = zAxisData[ 0 ]; double zMax = zAxisData[ 1 ];
-				
-				int totalCalculations = (int)(( (xMax-xMin)/xInc )*( (yMax-yMin)/yInc ));
-				if ( progress != null ) {
-					SwingUtilities.invokeLater( new Runnable() {
-	
-						@Override
-						public void run() {
-							progress.setMaximum( totalCalculations );
-						}
-						
-					});
-				}
-				
-				int calculationsPerformed = 0;
-				for ( double x=xMin ; x<xMax ; x+=xInc ) {
-					for ( double y=yMin ; y<yMax ; y+=yInc ) {
-						this.m_xVar.set( x );
+			this.m_functionGraph.clear();
+			DimensionData xDimen = this.pnlX.getDimensionProperties();
+			DimensionData yDimen = this.pnlY.getDimensionProperties();
+			double[] zAxisData = this.m_graphPaper.getZAxisProperties();
+			
+			this.inptFunction.highlight();
+			this.m_calculateEnvironment.process( this.inptFunction.getInput() );
+			this.inptFunction.unhighlight();
+			
+			double xMin = xDimen.m_min; double xMax = xDimen.m_max; double xInc = xDimen.m_inc;
+			double yMin = yDimen.m_min; double yMax = yDimen.m_max; double yInc = yDimen.m_inc;
+			double zMin = zAxisData[ 0 ]; double zMax = zAxisData[ 1 ];
+			
+			int totalCalculations = (int)(( (xMax-xMin)/xInc )*( (yMax-yMin)/yInc ));
+			if ( progress != null ) {
+				SwingUtilities.invokeLater( new Runnable() {
+
+					@Override
+					public void run() {
+						progress.setMaximum( totalCalculations );
+					}
+					
+				});
+			}
+			
+			int calculationsPerformed = 0;
+			for ( double x=xMin ; x<xMax ; x+=xInc ) {
+				for ( double y=yMin ; y<yMax ; y+=yInc ) {
+					this.m_xVar.set( x );
+					this.m_yVar.set( y );
+					double z = this.m_calculateEnvironment.evaluate().value();
+					
+					if ( zMin<=z && z<=zMax ) {
+						double nextX = x+xInc;
+						this.m_xVar.set( nextX );
 						this.m_yVar.set( y );
-						double z = this.m_calculateEnvironment.evaluate().value();
+						double zNextXCurrY = this.m_calculateEnvironment.evaluate().value();
 						
-						if ( zMin<=z && z<=zMax ) {
-							double nextX = x+xInc;
-							this.m_xVar.set( nextX );
-							this.m_yVar.set( y );
-							double zNextXCurrY = this.m_calculateEnvironment.evaluate().value();
+						if ( zMin<=zNextXCurrY && zNextXCurrY<=zMax ) {
 							
-							if ( zMin<=zNextXCurrY && zNextXCurrY<=zMax ) {
+							double nextY = y+yInc;
+							this.m_xVar.set( nextX );
+							this.m_yVar.set( nextY );
+							double zNextXNextY = this.m_calculateEnvironment.evaluate().value();
+							if ( zMin<=zNextXNextY && zNextXNextY<=zMax ) {
 								
-								double nextY = y+yInc;
-								this.m_xVar.set( nextX );
+								//make sure the user did not cancel the graphing
+								if ( graphThread != null ) {
+									if ( graphThread.isInterrupted() ) {
+										return;
+									}
+								}
+								
+								this.m_xVar.set( x );
 								this.m_yVar.set( nextY );
-								double zNextXNextY = this.m_calculateEnvironment.evaluate().value();
-								if ( zMin<=zNextXNextY && zNextXNextY<=zMax ) {
-									
-									//make sure the user did not cancel the graphing
-									if ( graphThread != null ) {
-										if ( graphThread.isInterrupted() ) {
-											return;
-										}
-									}
-									
-									this.m_xVar.set( x );
-									this.m_yVar.set( nextY );
-									double zCurrXNextY = this.m_calculateEnvironment.evaluate().value();
-									
-									if ( zMin<=zCurrXNextY && zCurrXNextY<=zMax ) {
-										this.m_functionGraph.addQuadrilateralToGraphLater( x , y , z , 
-																				nextX , y , zNextXCurrY ,
-																				nextX , nextY , zNextXNextY ,
-																				x , nextY , zCurrXNextY , 
-																				super.getSelectedMaterial() );
-									}
+								double zCurrXNextY = this.m_calculateEnvironment.evaluate().value();
+								
+								if ( zMin<=zCurrXNextY && zCurrXNextY<=zMax ) {
+									this.m_functionGraph.addQuadrilateralToGraphLater( x , y , z , 
+																			nextX , y , zNextXCurrY ,
+																			nextX , nextY , zNextXNextY ,
+																			x , nextY , zCurrXNextY , 
+																			super.getSelectedMaterial() );
 								}
 							}
 						}
-						
-						//update the user on the graphing progress
-						calculationsPerformed++;
-						if ( progress != null ) {
-							final int progressVal = calculationsPerformed;
-							SwingUtilities.invokeLater(
-								new Runnable() {
-	
-									@Override
-									public void run() {
-										progress.setValue( progressVal );
-									}
-									
-								}	
-							);
-						}
+					}
+					
+					//update the user on the graphing progress
+					calculationsPerformed++;
+					if ( progress != null ) {
+						final int progressVal = calculationsPerformed;
+						SwingUtilities.invokeLater(
+							new Runnable() {
+
+								@Override
+								public void run() {
+									progress.setValue( progressVal );
+								}
+								
+							}	
+						);
 					}
 				}
 			}
