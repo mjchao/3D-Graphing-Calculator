@@ -65,6 +65,6 @@ Future Improvements
 Known Problems
 -----
 
-* You cannot terminate the graphing if the computer has finished performing calculations and entered the rendering process (the program will freeze at this stage if your dimension increments are poorly chosen)
+* You cannot terminate the graphing if the computer has finished performing calculations and entered the rendering process (the program will freeze at this stage if your dimension increments are poorly chosen) - don't use a lower bound greater than an upper bound, or a negative increment (the program should check for this mistake, but I forgot to add this to the release).
 * Selecting points on parametric graphs does not work very well.
 * The "perspective" does not work very well. Graphs you add later will often appear in front of graphs you add earlier, regardless of the actual distance from the camera. 
